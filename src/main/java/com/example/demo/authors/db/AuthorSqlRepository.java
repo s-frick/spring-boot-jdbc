@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.authors.domain.Author;
 import com.example.demo.authors.domain.AuthorID;
-import com.example.demo.authors.domain.AuthorService;
+import com.example.demo.authors.domain.AuthorRepository;
 
 @Component
-public class AuthorRepository implements AuthorService {
+public class AuthorSqlRepository implements AuthorRepository {
 
   private final JdbcClient client;
   private final AuthorIDFactory idFactory;
 
-  public AuthorRepository(AuthorIDFactory idFactory, JdbcClient client) {
+  public AuthorSqlRepository(AuthorIDFactory idFactory, JdbcClient client) {
     this.idFactory = idFactory;
     this.client = client;
   }

@@ -2,7 +2,7 @@ package com.example.demo.authors.domain;
 
 import java.util.Optional;
 
-public interface AuthorService {
+public interface AuthorRepository {
   /**
    * Finds an author by their ID.
    *

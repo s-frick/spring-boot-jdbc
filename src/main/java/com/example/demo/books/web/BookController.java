@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Pageable;
-import com.example.demo.books.domain.BookService;
+import com.example.demo.books.domain.BookRepository;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
   private static final Logger log = LoggerFactory.getLogger(BookController.class);
 
-  private final BookService bookService;
+  private final BookRepository bookrepo;
 
-  public BookController(BookService bookService) {
-    this.bookService = bookService;
+  public BookController(BookRepository bookService) {
+    this.bookrepo = bookService;
   }
 
   private static <T> T log(T t) {
@@ -35,7 +35,7 @@ public class BookController {
 
   @GetMapping("/{id}")
   public ResponseEntity<? extends BookResponse> findById(@PathVariable String id) {
-    return bookService.findBookById(id)
+    return bookrepo.findBookById(id)
         .map(BookTO::of)
         .map(ResponseEntity::ok)
         .map(BookController::log)
@@ -46,18 +46,18 @@ public class BookController {
   public List<BookTO> findAll(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
-    return bookService.findAll(new Pageable(0, 10)).stream().map(BookTO::of).toList();
+    return bookrepo.findAll(new Pageable(0, 10)).stream().map(BookTO::of).toList();
   }
 
   @PostMapping
   public BookTO save(@RequestBody BookTO book) {
     return BookTO.of(
-        bookService.save(book.toDomain()));
+        bookrepo.save(book.toDomain()));
   }
 
   @DeleteMapping
   public void delete(String id) {
-    bookService.deleteBook(id);
+    bookrepo.deleteBook(id);
   }
 
 }

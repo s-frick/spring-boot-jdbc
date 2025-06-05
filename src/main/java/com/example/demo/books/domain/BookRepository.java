@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.example.demo.Pageable;
 
-public interface BookService {
+public interface BookRepository {
 
   List<Book> findAll(Pageable page);
 

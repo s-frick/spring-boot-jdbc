@@ -6,25 +6,27 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.books.domain.BookService;
+import com.example.demo.books.domain.BookRepository;
 import com.example.demo.Pageable;
-import com.example.demo.authors.domain.AuthorService;
+import com.example.demo.authors.domain.AuthorRepository;
 import com.example.demo.IDGenerator;
 import com.example.demo.books.domain.Book;
 import com.example.demo.books.domain.BookID;
 
-@Component
-public class BookRepository implements BookService {
-  private static final Logger log = LoggerFactory.getLogger(BookRepository.class);
+@Repository
+public class BookSqlRepository implements BookRepository {
+  private static final Logger log = LoggerFactory.getLogger(BookSqlRepository.class);
 
   private final JdbcClient client;
   private final IDGenerator<BookID, Book> idGenerator;
-  private final AuthorService authorService;
+  private final AuthorRepository authorRepository;
 
-  public BookRepository(AuthorService authorService, JdbcClient client, IDGenerator<BookID, Book> idGenerator) {
-    this.authorService = authorService;
+  public BookSqlRepository(AuthorRepository authorRepository, JdbcClient client,
+      IDGenerator<BookID, Book> idGenerator) {
+    this.authorRepository = authorRepository;
     this.client = client;
     this.idGenerator = idGenerator;
   }
@@ -56,8 +58,9 @@ public class BookRepository implements BookService {
   }
 
   @Override
+  @Transactional
   public Book save(Book book) {
-    var author = authorService.save(book.author());
+    var author = authorRepository.save(book.author());
 
     BookID key = idGenerator.generate(book);
     client.sql("""
