@@ -1,0 +1,75 @@
+### save-book-fahrenheit
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Fahrenheit 451",
+  "author": "Ray Bradbury",
+  "isbn": "978-1451673319"
+}
+
+?? status == 200
+
+### save-book-steppenwolf
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Der Steppenwolf",
+  "author": "Hermann Hesse",
+  "isbn": "978-3596229455"
+}
+
+?? status == 200
+
+### save-book-verwandlung
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Die Verwandlung",
+  "author": "Franz Kafka",
+  "isbn": "978-3150092539"
+}
+
+?? status == 200
+
+### save-book-urteil
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Das Urteil",
+  "author": "Franz Kafka",
+  "isbn": "978-3150092539"
+}
+
+?? status == 200
+
+### save-book-prozess
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Der Process",
+  "author": "Franz Kafka",
+  "isbn": "978-3150092560"
+}
+
+
+?? status == 200
+
+### save-book-schloss
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Das Schloss",
+  "author": "Franz Kafka",
+  "isbn": "978-3150092577"
+}
+
+
+?? status == 200
+
+
